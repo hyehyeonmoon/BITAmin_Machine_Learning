@@ -3,21 +3,22 @@
 
 |       Date       | Topic | Presenters | Slides |
 |:----------------:|:----------------------------------------:|:----------:|:------:
-| 28th Oct, 2020 | Lecture 1 – Introduction and Word Vectors | 이유민 | [Slide]()
-| 28th Oct, 2020 | Lecture 2 – Word Vectors and Word Senses | 오창대 | [Slide]()
-| 4th Nov, 2020 | Lecture 3 – Word Window Classification, Neural Networks, and Matrix Calculus | 안재현 | [Slide]()
-| 6th Nov, 2020 | Lecture 4 – Backpropagation and Computation Graphs | 문혜현 | [Slide](https://github.com/yourmean/UOS-NLP-Seminar/blob/master/Slides/lec04_Backpropagation_and_Computationgraphs.pdf)
-| 11th Nov, 2020 | Lecture 5 – Linguistic Structure: Dependency Parsing | 이유민 | [Slide]()
-| 30th Nov, 2020 | Lecture 6 – Language Models and RNNs | 문혜현 | [Slide](https://github.com/yourmean/UOS-NLP-Seminar/blob/master/Slides/lec06_Languagemodels_and_RNNs.pdf)
-| 18th Nov, 2020 | Lecture 7 – Vanishing Gradients, Fancy RNNs | 강창구 | [Slide]()
-| 18th Nov, 2020 | Lecture 8 – Translation, Seq2Seq, Attention | 오창대 | [Slide](https://github.com/yourmean/UOS-NLP-Seminar/blob/master/Slides/lec08_seq2seqAttention.pdf)
-| 25th Nov, 2020 | Lecture 10 – Question Answering | 이유민 | [Slide]()
-| 16th Dec, 2020 | Lecture 11 – Convolutional Networks for NLP | 오창대 | [Slide](https://github.com/yourmean/UOS-NLP-Seminar/blob/master/Slides/lec11_CNNforNLP.pdf)
-| 23th Jan, 2021 | Lecture 12 – Subword Models | 문혜현 | [Slide](https://github.com/yourmean/UOS-NLP-Seminar/blob/master/Slides/lec12_Subword_models.pdf)
-| 16th Dec, 2020 | Lecture 13 – Contextual Word Embeddings | 강창구 | [Slide]()
-| 23th Dec, 2020 | Lecture 14 – Transformers and Self-Attention | ??? | [Slide]()
-| 23th Dec, 2020 | Lecture 15 – Natural Language Generation | ??? | [Slide]()
-| 23th Dec, 2020 | Lecture 18 – Constituency Parsing, TreeRNNs | ??? | [Slide]()
+| 12th Feb, 2020 | Ch01_Machinelearning | BITAmin | [Slide]()
+| 18th Feb, 2020 | Ch02_Crawling | BITAmin | [Slide]()
+| 1th Mar, 2020  | Ch03_Rshiny | BITAmin | [Slide]()
+| 12th Mar, 2020  | Ch04_knn,kmeans | Team1 | [Slide](https://github.com/yourmean/UOS-NLP-Seminar/blob/master/Slides/lec04_Backpropagation_and_Computationgraphs.pdf)
+| 29th Mar, 2020 | Ch05_decisiontree | Team2 | [Slide]()
+| 5th Apr, 2020 | Ch06_regressiontree | Team3 | [Slide](https://github.com/yourmean/UOS-NLP-Seminar/blob/master/Slides/lec06_Languagemodels_and_RNNs.pdf)
+| 13th Apr, 2020 | Lecture 7 – Vanishing Gradients, Fancy RNNs | Team4 | [Slide]()
+| 17th Apr, 2020 | Ch08_PCA | BITAmin | [Slide](https://github.com/yourmean/UOS-NLP-Seminar/blob/master/Slides/lec08_seq2seqAttention.pdf)
+| 10th May, 2020 |Ch09_ensemble,bagging,randomforest | Team5| [Slide](https://github.com/yourmean/UOS-NLP-Seminar/blob/master/Slides/lec08_seq2seqAttention.pdf)
+
+| 18th May, 2020 | Ch10_boosting,Adaboosting | Team1 | [Slide]()
+| 24th May, 2020 | Lecture 11 – Convolutional Networks for NLP | Team2 | [Slide](https://github.com/yourmean/UOS-NLP-Seminar/blob/master/Slides/lec11_CNNforNLP.pdf)
+| 23th Jun, 2020 | Ch12_SVC | Team3 | [Slide](https://github.com/yourmean/UOS-NLP-Seminar/blob/master/Slides/lec12_Subword_models.pdf)
+| 1th Jul, 2020 | Ch13_장바구니 | Team4 | [Slide]()
+| 9th Jul, 2020 | Ch14_network,datamining | Team5 | [Slide]()
+| 22th Jul, 2020 | Ch15_Github | BITAmin | [Slide]()
 <br/>
 
 ## Reference
