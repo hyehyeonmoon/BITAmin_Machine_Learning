@@ -1,0 +1,315 @@
+
+library(stringr)
+
+#(1)
+fruits<-c('apple','Apple',banana','pineapple')
+str_detect(fruits, 'A')
+str_detect(fruits, '^[aA]'')
+
+str_detect(fruits"^a")
+str_detect(fruits, regex("^a"))
+str_detect(fruits, regex("^a", ignore_case=T))
+str_detect(fruits, fixed("^a", ignore_case=T))
+
+str_detect("\nX\n", ".X.")
+str_detect("\nX\n", regex(".X.", dotall=T))
+
+#(2)
+fruits
+str_count(fruits, 'a')
+str_coount(fruits, fixed("a", ignore_case=T))
+
+#(3)
+str_c("apple", "banana")
+str_c(fruits)
+str_c("Fritus: ", fruits)
+str_c(fruits, collapse = "-")
+
+#(4)
+str_dup(c("apple", "banana"),3)
+str_dup(fruits,2)
+
+#(5)
+str_length(fruits)
+length(fruits)
+str_length("Hi bitamin")
+length("Hi bitamin")
+
+#(6)
+fruits
+str_locate(fruits, 'a')
+str_locate_all(fruits,'a')
+str_locate(fruits,'pp')
+
+#(7)
+str_replace('apple','p','*')
+str_replace_all('apple','p','*')
+
+#(8)
+fruits<-str_c('apple','/','orange','/','banana')
+fruits
+str_split(fruits,"/")
+
+#(9)
+hw<-"Hadley Wickham"
+str_sub(hw, start=8, end=14)
+str_sub(hw,8)
+str_sub(hw, c(1,8), c(6,14))
+str_sub(hw, start=0)
+str_sub(hw, end=0)
+str_sub(hw, start=-1)
+str_sub(hw, start=-2)
+str_sub(hw, end=-1)
+str_sub(hw, end=-2)
+str_sub(hw, end=-7)
+
+
+#(10)
+str_trim(' apple banana berry ')
+
+#(11)
+x<-c("apple", "banana", "pear")
+str_extract(x, "^a")
+str_extract_all(x, "^a")
+
+#(1)
+char1<-c('apple', 'Apple','APPLE','banana','grape')
+grep('^A', char1)
+grep('^A', char1, value=T)
+chcar2<-c('apple', 'banana')
+grep(paste(char2, collapse='|'), char1, value=T)
+char3<-c('grape11', 'apple1', 'apple', 'orange', 'Apple', 'grape0')
+grep('[0-9', char3, value=T)
+grep('[[:upper:]]', char3, value=T)
+
+six<-c("한얼", "Haneol", "봉석", "Bongseok", "은아", "euna")
+grep('[가-힣]', six, value=T)
+grep('[a-z]', six, value=T)
+grep('[A-Z]', six, value=T)
+
+#(2)
+test<-c("korean", "english", "french")
+grep("h", test)
+regexpr("h", test)
+gregexpr("h", test)
+
+#(3)
+char1
+nchar(char1)
+str_length(char1)
+nchar('James Seo')
+str_length('James Seo')
+
+#(4)
+sub("p", "*", "apple")
+gsub("p", "*", "apple")
+
+#######koNLP install
+
+# R 64bit 실행(rstudio 실행도 가능) 
+
+# java, rJava 설치 install.packages("multilinguer")
+# 이때 mac 사용자는 데스크탑 비밀번호를 물어봅니다. 입력해줘야 설치가 진행됩니다.
+library(multilinguer)
+install_jdk()
+# 위 함수에서 에러가 발생하면 알려주세요
+# https://github.com/mrchypark/multilinguer/issues
+
+# 의존성 패키지 설치
+install.packages(c("hash", "tau", "Sejong", "RSQLite", "devtools", "bit", "rex", "lazyeval", "htmlwidgets", "crosstalk", "promises", "later", "sessioninfo", "xopen", "bit64", "blob", "DBI", "memoise", "plogr", "covr", "DT", "rcmdcheck", "rversions"), type = "binary")
+
+# github 버전 설치
+install.packages("remotes")
+# 64bit 에서만 동작합니다.
+remotes::install_github('haven-jeon/KoNLP', upgrade = "never", INSTALL_opts=c("--no-multiarch"))
+
+#################
+
+##1. txt 파일 불러오기
+setwd("C:\\Users\\moonf\\Desktop\\비타민동아리\\14주차_네트워크,데이터마이닝\\news")
+news1<-readLines('news1.txt')
+news2<-readLines('news2.txt')
+news3<-readLines('news3.txt')
+news4<-readLines('news4.txt')
+news5<-readLines('news5.txt')
+
+##2. 사용 사전 불러오기
+library(KoNLP)
+useNIADic()
+
+##3. 명사추출
+nouns1<-sapply(news1, extractNoun, USE.NAMES = F)
+nouns2<-sapply(news2, extractNoun, USE.NAMES = F)
+nouns3<-sapply(news3, extractNoun, USE.NAMES = F)
+nouns4<-sapply(news4, extractNoun, USE.NAMES = F)
+nouns5<-sapply(news5, extractNoun, USE.NAMES = F)
+
+##4. 리스트 해제하기
+nouns1
+
+un_nouns1<-unlist(nouns1)
+un_nouns2<-unlist(nouns2)
+un_nouns3<-unlist(nouns3)
+un_nouns4<-unlist(nouns4)
+un_nouns5<-unlist(nouns5)
+
+##5
+word1<-Filter(function(x){nchar(x)>=2}, un_nouns1)
+word1
+word1<-unlist(str_split(word1, "\\("))
+word1<-unlist(str_split(word1, "\\)"))
+word1<-unlist(str_split(word1, "~"))
+word1
+
+word2<-Filter(function(x){nchar(x)>=2}, un_nouns2)
+word2
+word3<-Filter(function(x){nchar(x)>=2}, un_nouns3)
+word3<-unlist(str_split(word3, "\\("))
+word3<-unlist(str_split(word3, "\\)"))
+word3<-unlist(str_split(word3, "~"))
+word3
+
+word4<-Filter(function(x){nchar(x)>=2}, un_nouns4)
+word4<-unlist(str_split(word4, "\\("))
+word4<-unlist(str_split(word4, "\\)"))
+word4<-unlist(str_split(word4, "~"))
+word4
+
+word5<-Filter(function(x){nchar(x)>=2}, un_nouns5)
+word5<-unlist(str_split(word5, "\\("))
+word5<-unlist(str_split(word5, "\\)"))
+word5<-unlist(str_split(word5,"~"))
+word5
+
+word1<-grep("[가-힣a-zA-Z]", word1, valu=T)
+word1
+
+word2<-grep("[가-힣a-zA-Z]", word2, valu=T)
+word3<-grep("[가-힣a-zA-Z]", word3, valu=T)
+word4<-grep("[가-힣a-zA-Z]", word4, valu=T)
+word5<-grep("[가-힣a-zA-Z]", word5, valu=T)
+
+
+library(tm)
+doc.l<-list(word1, word2, word3, word4, word5)
+docs.corp<-VCorpus(VectorSouce(doc.l))
+td<-TermDocumentMatrix(docs.corp, control=list(weighting=weightTfIdf,
+                                               removePunctuation=TRUE,
+                                               removeNumbers=TRUE,
+                                               wordLengths=c(2,8)))
+a<-as.matrix(td)
+
+
+
+#################7. 네트워크 분석
+library(igraph)
+edges<-c(1,2,3,2,2,4)
+g<-graph(edges, n=max(edges), directed=TRUE)
+g
+plot(g)
+vcount(g)
+ecount(g)
+get.edgelist(g)
+
+#Define Nodes
+nodes<-cbind('id'=c('Fermenters', 'Methanogens','carbs', 'CO2',
+                    'H2','other', 'CH4', 'H2O'), 'type'=c(rep('Microbe',2),rep('nonBio',6)))
+nodes
+
+links<-cbind('from'=c('carbs',rep('Fermenters',3),rep('Methanogens',2),'CO2','H2'),
+             'to'=c('Fermenters','other','CO2','H2','CH4','H2O',rep('Methanogens',2)),
+             'weight'=rep(1,8))
+
+links
+
+net<-graph_from_data_frame(links, vertices=nodes, directed=T)
+plot(net)
+
+V(net)
+E(net)
+colrs.v=c(nonBio="lightblue",Microbe="gold")
+V(net)$color=colrs.v[V(net)$type]
+colrs.e=c(output="grey", uptake="magenta")
+E(net)$color=colrs.e[e(net)$type]
+plot(net, edge.curved=0.2, vertex.size=30)
+
+g4<-graph(c('bi','ta','ta','min','kimyoungseok','kimyoungseok'),
+          isolates=c("park", "ji","eun"))
+V(g4)$gender<-c("male",'male','male','female','female','female')
+E(g4)$type<-"email"
+E(g4)$weight<-10
+
+c("pink","skyblue")[1+(V(g4)$gender=="male")]
+plot(g4, edge.arrow.size=1, vertex.label.color="black",vertex.label.dist=1.5,
+     vertex.color=c("pink", "skyblue"))[1+(V(g4)$gender=="male")]
+g4[]
+
+fg<-make_full_graph(40)
+plot(fg, vertex.size=10, vertex.label=NA)
+st<-make_star(40)
+plot(st,vertex.size=10, vertex.label=NA)
+
+nodes<-read.csv("Dataset1-Media-Example-NODES.csv", header=T, as.is=T)
+links<-read.csv("Dataset1-Media-Example-EDGES.csv", header=T, as.is=T)
+head(nodes)
+head(links)
+
+net<-graph_from_data_frame(d=links, vertices=nodes, directed=T)
+class(net)
+plot(net, edge.arrow.size=1, vertex.label=NA)
+
+colors<-c("gray50", "tomato","gold")
+V(net)$color<-colors[V(net)$media.type]
+V(net)$size<-V(net)$audience.size*0.7
+V(net)$label.color<-"black"
+E(net)$width<-E(net)$weight
+E(net)$arrow.size<-.2
+
+legend(x=1, y=1.1, c("newspaper","tv","online news"),pch=21, col="#77777",pt.bg=colors,pt.cex=2, cex=0.8,
+       bty="n", ncol=1)
+plot(netvertex.shape="none", vertex.label=V(net)$media, vertex.label.font=2, vertex.label.color="gray40",
+     vertex.label.cex=0.7, edge.color="gray85")
+
+
+library(tidyverse)
+net_degree<-igraph::degree(net, mode="total", normalized=TRUE)
+degree_df<-net_degree %>%
+  as.data.frame() %>%
+  'colnames<-'(c("degree")) %>%
+  'rownames<-'(names(net_degree)) %>%
+  rownames_to_column(var="node") %>%
+  arrange(desc(degree))
+
+DT::datatable(degree_df)
+net_degree
+
+##아이젠 벡터 중ㅇ심성
+net_eigen<-igraph::eigen_centrality(net)$vector
+eigen_df<-net_eigen %>%
+  as.data.frame() %>%
+  'colnames<-'(c("eigenvector")) %>%
+  'rownames<-'(names(net_eigen)) %>%
+  rownames_to_column(var="node") %>%
+  arrange(desc(eigenvector))
+
+DT::datatable(eigen_df)
+
+
+#betweeness 중심성
+net_between<-igraph::betweenness(net, normalized=TRUE)
+between_df<-net_between %>%
+  as.data.frame() %>%
+  'colnames<-'(c("between")) %>%
+  'rownames<-'(names(net_between)) %>%
+  rownames_to_column(var="node") %>%
+  arrange(desc(between))
+
+DT::datatable(between_df)
+
+
+
+
+
+
+
+

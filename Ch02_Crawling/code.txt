@@ -1,0 +1,153 @@
+#install.packages("rvest")
+library(rvest)
+
+url_base<-"https://movie.naver.com/movie/bi/mi/pointWriteFormList.nhn?code=70254&type=after&isActualPointWriteExecute=false&isMileageSubscriptionAlready=false&isMileageSubscriptionReject=false&page="
+paste(url_base,1,sep='')
+
+#리뷰 한개
+url<-paste(url_base,1,sep='')
+htxt<-read_html(url,encoding="UTF-8")
+table<-html_nodes(htxt,".score_result")
+content<-html_nodes(table,".score_reple")
+content2<-html_nodes(content,paste("#_filtered_ment_",1,sep=''))
+reviews<-html_text(content2)
+reviews
+
+# 리뷰 크롤링
+all.reviews<-c()
+for(page in 1:10){
+  for(num in 1:9){
+  url<-paste(url_base,page,sep='')
+  htxt<-read_html(url,encoding="UTF-8")
+  table<-html_nodes(htxt,".score_result")
+  content<-html_nodes(table,".score_reple")
+  content2<-html_nodes(content,paste("#_filtered_ment_",num,sep=''))
+  reviews<-html_text(content2)
+  if(length(reviews)==0){break}
+  all.reviews<-c(all.reviews,reviews)
+  print(page)
+  }
+}
+
+head(all.reviews)
+data<-gsub("[[:cntrl:]]","",all.reviews)
+head(data)
+
+# 평점 크롤링
+all_score<-c()
+for(page in 1:10){
+  url<-paste(url_base,page,sep="")
+  htxt<-read_html(url,encoding="UTF-8")
+  html<-html_nodes(htxt,".score_result")
+  content<-html_nodes(html,".star_score")
+  content2<-html_nodes(content,"em")
+  score<-html_text(content2)
+  all_score<-c(all_score,score)
+  print(page)
+}
+
+as.numeric(all_score)
+hist(as.numeric(all_score))
+
+# dplyr 활용해서 간소화
+library(dplyr)
+
+all_score2<-list()
+for(page in 1:10){
+  all_score2[[page]]<-read_html(paste(url_base,page,sep=""),encoding="UTF-8") %>% html_nodes(".score_result") %>%
+  html_nodes(".star_score") %>% html_nodes("em") %>% html_text()
+}
+
+all_score2
+unlist(all_score2)
+
+#selenium
+#install.packages("RSelenium")
+library(RSelenium)
+name<-read.csv("C:/Users/dudtj/Desktop/2주차크롤링/example.csv",header=F,stringsAsFactors = F)
+str(name)
+
+remDr<-remoteDriver(port=4445,browserName="chrome")
+remDr$open()
+remDr$navigate("http://www.naver.com")
+#블로그 클릭
+blogButton<-remDr$findElement(using="xpath",value='//*[@id="PM_ID_ct"]/div[1]/div[2]/div[1]/ul[1]/li[3]/a/span[1]')
+blogButton$clickElement() ; Sys.sleep(2)
+
+#검색어 입력란 
+webElemButton<-remDr$findElement(using="css selector",value='#header > div.header_common > div > div.area_search > form > fieldset > div > input')
+webElemButton$sendKeysToElement(list(key='shift',key='home',key='delete'))
+webElemButton$sendKeysToElement(list('김영석'))
+
+#검색 버튼 
+click_button<-remDr$findElement(using="css selector",value='#header > div.header_common > div > div.area_search > form > fieldset > a.button.button_blog')
+click_button$clickElement();Sys.sleep(2)
+
+#날짜 버튼
+range_button<-remDr$findElement(using="css selector",value='#content > section > div.category_search > div.search_information > div > div > a > strong')
+range_button$clickElement()
+
+#날짜 설정
+start_date_button<-remDr$findElement(using="css selector",value='#search_start_date')
+start_date_button$sendKeysToElement(list(key='shift',key='home',key='delete'))
+start_date_button$sendKeysToElement(list("20100101"))
+
+end_date_button<-remDr$findElement(using="css selector",value='#search_end_date')
+end_date_button$sendKeysToElement(list(key='shift',key='home',key='delete'))
+end_date_button$sendKeysToElement(list("20120101"))
+
+#적용버튼
+find_button<-remDr$findElement(using="css selector",value='#periodSearch')
+find_button$clickElement()
+find_button$clickElement();Sys.sleep(2)
+
+#글 가져오기
+html<-read_html(remDr$getPageSource()[[1]]);Sys.sleep(1)
+content<-html_nodes(html,".search_number")
+num<-html_text(content)
+num
+
+#selenium 총정리 코드
+#function(start_date,end_date,word){
+start_date='20101010'
+end_date='20121010'
+all_num<-c()
+
+#findElement : 요소찾기
+#clickElement : 그 요소를 마우스로 클릭
+#sendKeysToElement : 키보드 입력
+
+for(i in 1:nrow(name)){
+webElemButton<-remDr$findElement(using="css selector",value='#header > div.header_common > div > div.area_search > form > fieldset > div > input')
+webElemButton$sendKeysToElement(list(key='shift',key='home',key='delete'))
+webElemButton$sendKeysToElement(list(name[i,]))
+
+click_button<-remDr$findElement(using="css selector",value='#header > div.header_common > div > div.area_search > form > fieldset > a.button.button_blog')
+click_button$clickElement();Sys.sleep(2)
+
+range_button<-remDr$findElement(using="css selector",value='#content > section > div.category_search > div.search_information > div > div > a > strong')
+range_button$clickElement()
+
+start_date_button<-remDr$findElement(using="css selector",value='#search_start_date')
+start_date_button$sendKeysToElement(list(key='shift',key='home',key='delete'))
+start_date_button$sendKeysToElement(list(start_date))
+
+end_date_button<-remDr$findElement(using="css selector",value='#search_end_date')
+end_date_button$sendKeysToElement(list(key='shift',key='home',key='delete'))
+end_date_button$sendKeysToElement(list(end_date))
+
+find_button<-remDr$findElement(using="css selector",value='#periodSearch')
+find_button$clickElement()
+find_button$clickElement();Sys.sleep(2)
+
+html<-read_html(remDr$getPageSource()[[1]]);Sys.sleep(1)
+content<-html_nodes(html,".search_number")
+num<-html_text(content)
+all_num<-c(all_num,num)
+print(i)
+}
+#}
+all_num
+cbind(이름=name[,1],count=all_num)
+
+

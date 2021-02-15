@@ -1,0 +1,80 @@
+
+install.packages("arulesViz")
+library(arules)
+setwd("C:\\Users\\moonf\\Desktop\\비타민동아리\\13주차_장바구니")
+groceries<-read.transactions("groceries.csv", sep=',')
+summary(groceries)
+
+inspect(groceries[1:3])
+itemFrequency(groceries[,1:3])
+image(groceries[1:5])
+
+itemFrequencyPlot(groceries, support=0.1)
+itemFrequencyPlot(groceries, topN=10)
+
+rule<-aprior(groceries, parameter=list(support=0.1, confidence=0.8))
+rule2<-aprior(groceries, parameter=list(support=0.006, confidence=0.25, minlen=2))
+
+plot(rule, method='graph', control=list(type='items'))
+plot(rule2, method='graph', control=list(type='items'))
+#####
+inspect(sort(rule2, by='lift')[1:5])
+inspect(sort(rule2, by='confidence')[1:5])
+
+berry_rule<-subset(rule2, item %in% 'berries')
+inspect(sort(berry_rule, by='lift'))
+inspect(sort(beerry_rule, by='confidence'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
