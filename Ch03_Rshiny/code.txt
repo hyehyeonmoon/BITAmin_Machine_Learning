@@ -1,0 +1,187 @@
+
+install.packages("shiny")
+install.packages("shinydashboard")
+install.packages("DT")
+install.packages("nnet")
+library(shiny)
+library(shinydashboard)
+library(ggplot2)
+library(DT)
+library(dplyr)
+library(nnet)
+
+dashboardPage(
+  dashboardHead(title="Jieun Dashboard"),
+  
+  dashboardSidebar(
+    sidebarMenu(
+      menuItem("widget",tabName="widget",icon=icon("box")),
+      menuItem("practice",tabName="practice",icon=icon("pencil-alt")),
+      menuItem("Database",tabName="Database",icon=icon("database")),
+      menuItem("EDA",tabName="EDA",icon=icon("chart-pie")),
+      menuItem("Modeling",tabName="Modeling",icon=icon("chart-line")),
+    )
+  )
+)
+
+dashboardBody(
+  
+  tabItems(
+    tabItem(tabName="widget",
+            fluidRow(
+              column(3,
+                     h3("Buttons"),
+                     actionButton(inputId="action",
+                                  label="Action")),
+              column(3,
+                     checkboxGgroupInput(inputId="checkGroup",
+                                         label=h3("Checkbox group"),
+                                         choices=list("choice 1"=1,
+                                                      "choice 2"=2,
+                                                      "choice 3"=3),
+                                         selected=1)),
+              column(3,
+                     dateInput(InputId="date",
+                               label=h3("Date input"),
+                               value="2019-02-23"))),
+            ###
+            ))
+  )
+)
+
+########
+fluidRow(
+  column(3,
+         dateRangeInput("dates",h3("Date range"))),
+  column(3,
+         fileInput("file",h3("File input"))),
+  column(3,
+         numericInput("num",
+                      h3("Numeric input"),
+                      value=1))),  
+)
+
+fluidRow(
+  column(3,
+         selectInput(inputId="select",
+                     label=h3("select box"),
+                     choices=list("choice 1"=1, "choice 2"=2,
+                                  "choice 3"=3), selected=1)),
+  column(3,
+         sliderInput(inputId="slider1",
+                     label=h3("Sliders"),
+                     min=0,max=100,value=50),
+         sliderInput("slider2","",min=0,max=100,value=c(25,75))),
+  column(3,
+         textInput("text",h3("Text input"),
+                   value="Enter text..."))
+)
+
+
+###second tab, Ui.R##############
+
+tabItem(tabName="practice",
+        fluidRow(box(width=6,
+                     selectInput("species",
+                                 label="choose Species type in Data iris",
+                                 choices=c("None",as.character(unique(iris$Species))),
+                                 selected="None")),
+                 box(width=6,
+                     textOutput("selected_species")))
+        ),
+
+
+####second tab, server.R
+library(ggplot2)
+library(dplyr)
+
+server<-function(input, output){
+  output$selected_species<-renderText({
+    paste("You have selected",input$Species, "species from iris Data")
+  })
+}
+
+##third tab(database), ui.R
+
+tabItem(tabName="Database",
+        fluidRow(column(6,
+                        fileInput("data","Load data(only csv!!",
+                                  multiple=F,
+                                  accept=c('.csv')))),
+        fluidRow(box(width=12,dT::dataTableOutput("iris_df"),
+                     style="height:400px; overflow-y:scroll;overflow-x:scroll;"))),
+)
+
+
+##third tab(database), server.R
+
+
+df<-reactive({
+  if(is.null(input$data)){
+    read.csv("iris.csv")
+  }else
+    read.csv(input$data$datapatch)
+})
+
+  output$iris_df <- renderdataTable({
+    df()
+  })
+
+
+##fourth tab(EDA), Ui.R##########
+  
+tabItem(tabName="EDA",
+        fluidRow(box(width=4,
+                     uiOutput("xvar"),
+                     uiOutput("yvar"),
+                     uiOutput("Species_chk"),
+                     actionButton(inputId="draw",
+                                  label="draw plot")),
+                 box(width=8,
+                     plotOutput("plot_iris"))))
+
+
+
+##fourth tab(EDA), server.R##########
+
+output$xvar<-renderUI({
+  selectInput('xvar','X axis',
+              choices=colnames(df()),
+              selected=colnames(df())[1])
+})
+output$yvar<-renderUI({
+  selectInput('yvar','Y axis',choices=colnames(df()),
+              selected=colnames(df())[2])
+})
+plot<-eventReactive(input$draw,{
+  ggplot(df()%>% filter(Species==input$species_chk),
+         aes(!!sym(input$xvar),!!sym(input$yvar)))+
+    geom_point()+
+    theme_bw
+})
+
+output$plot_iris<-renderPlot({
+  plot()
+})
+
+##fifth tab(Modeling), Server.R##########
+val<-reactiveValues(train=Null,test=Null,model=Null)
+
+#training_set, test_set
+log_model<-reactive({
+  
+  
+  set.seed(0921)
+  train_idx<-sample(1:nrow(df()),nrow(df())*0.7)
+  test_idx<-setdiff(1:nrow(df()),train_idx)
+  val$train<-df()[train_idx,]
+  val$test<-df()[test$idx,]
+  
+  multi_logit_m<-multinom(Species~Petal.Length+Petal.Width, data=val$train)
+  multi_logit_m
+})
+
+
+
+
+
