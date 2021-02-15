@@ -12,7 +12,6 @@
 | 13th Apr, 2020 | Lecture 7 – Vanishing Gradients, Fancy RNNs | Team4 | [Slide]()
 | 17th Apr, 2020 | Ch08_PCA | BITAmin | [Slide](https://github.com/yourmean/UOS-NLP-Seminar/blob/master/Slides/lec08_seq2seqAttention.pdf)
 | 10th May, 2020 |Ch09_ensemble,bagging,randomforest | Team5| [Slide](https://github.com/yourmean/UOS-NLP-Seminar/blob/master/Slides/lec08_seq2seqAttention.pdf)
-
 | 18th May, 2020 | Ch10_boosting,Adaboosting | Team1 | [Slide]()
 | 24th May, 2020 | Lecture 11 – Convolutional Networks for NLP | Team2 | [Slide](https://github.com/yourmean/UOS-NLP-Seminar/blob/master/Slides/lec11_CNNforNLP.pdf)
 | 23th Jun, 2020 | Ch12_SVC | Team3 | [Slide](https://github.com/yourmean/UOS-NLP-Seminar/blob/master/Slides/lec12_Subword_models.pdf)
