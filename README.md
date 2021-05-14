@@ -9,7 +9,7 @@
 | 12th Mar, 2020  | Ch04_knn,kmeans | Team1 | [Slide](https://github.com/hyehyeonmoon/BITAmin_Machine_Learning/blob/main/Ch04_knn%2Ckmeans/4%EC%A3%BC%EC%B0%A8%20knn%2C%20kmeans.pdf)
 | 29th Mar, 2020 | Ch05_decisiontree | Team2 | [Slide](https://github.com/hyehyeonmoon/BITAmin_Machine_Learning/blob/main/Ch05_decisiontree/5%EC%A3%BC%EC%B0%A8%20decision%20tree.pdf)
 | 5th Apr, 2020 | Ch06_regressiontree | Team3 | [Slide](https://github.com/hyehyeonmoon/BITAmin_Machine_Learning/blob/main/Ch06_regressiontree/6%EC%A3%BC%EC%B0%A8_Regression_Tree_final.pdf)
-| 13th Apr, 2020 | Lecture 7 – Vanishing Gradients, Fancy RNNs | Team4 | [Slide](https://github.com/hyehyeonmoon/BITAmin_Machine_Learning/blob/main/Ch07_linear%2Clogistic%20regression/7%EC%A3%BC%EC%B0%A8%20linear%2Clogistic%20regression.pdf)
+| 13th Apr, 2020 | Ch07 – linear,logistic regression | Team4 | [Slide](https://github.com/hyehyeonmoon/BITAmin_Machine_Learning/blob/main/Ch07_linear%2Clogistic%20regression/7%EC%A3%BC%EC%B0%A8%20linear%2Clogistic%20regression.pdf)
 | 17th Apr, 2020 | Ch08_PCA | BITAmin | [Slide](https://github.com/hyehyeonmoon/BITAmin_Machine_Learning/blob/main/Ch08_PCA/8%EC%A3%BC%EC%B0%A8%20PCA.pdf)
 | 10th May, 2020 |Ch09_ensemble,bagging,randomforest | Team5| [Slide](https://github.com/hyehyeonmoon/BITAmin_Machine_Learning/blob/main/Ch09_ensemble%2Cbagging%2Crandomforest/9%EC%A3%BC%EC%B0%A8%20ensemble%2Cbagging%2Crandomforest.pdf)
 | 18th May, 2020 | Ch10_boosting,Adaboosting | Team1 | [Slide](https://github.com/hyehyeonmoon/BITAmin_Machine_Learning/blob/main/Ch10_boosting%2CAdaboosting/10%EC%A3%BC%EC%B0%A8%20boosting%2CAdaboosting.pdf)
